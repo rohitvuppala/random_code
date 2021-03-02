@@ -1,0 +1,21 @@
+
+      subroutine readchemkin
+      include "param.react.inc"
+      include "common.react.inc"
+
+c ------ stupid program to read in chemkin format
+
+       open(12,file='thermo.dat',status='unknown')
+       do n=1,nsp
+          read(12,*) 
+          read(12,246) (cpf(l,n,1),l=1,5),i1
+          read(12,246) ho(n,1),go(n,1),(cpf(l,n,0),l=1,3),i2
+          read(12,247) (cpf(l,n,0),l=4,5),ho(n,0),go(n,0),i3
+       enddo
+
+ 245     format(18a1,6a1,4(2a1,i3),a1,e10.0,e10.0,e8.0,i1)
+ 246     format(5e15.0,i1)
+ 247     format(4e15.0,i1)
+
+       return
+       end
